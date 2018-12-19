@@ -64,9 +64,6 @@ k_exact = fmap.diff_coeff_exact(fmap.tpars)
 # Comparación de la verdad, el MAP y la media
 pl.figure(figsize=(12,10))
 pl.subplot(211)
-# pl.plot(fmap.tpars,k_exact,'b-',label=r'$k_{True}$')
-# pl.plot(fmap.tpars,muestra_map,'k-o',label=r'$k_{MAP}$')
-# pl.plot(fmap.tpars,muestra_mean,'r-*',label=r'$k_{CM}$')
 pl.plot(fmap.tpars,fmap.ro*fmap.cp*k_exact,'b-',label=r'$k_{True}$')
 pl.plot(fmap.tpars,fmap.ro*fmap.cp*muestra_map,'k-o',label=r'$k_{MAP}$')
 pl.plot(fmap.tpars,fmap.ro*fmap.cp*muestra_mean,'r-*',label=r'$k_{CM}$')
@@ -81,30 +78,10 @@ pl.legend(loc=0)
 pl.ylabel(r'$k(t)$')
 pl.grid()
 
-# pl.subplot(221)
-# pl.plot(fmap.tpars,k_exact,'b-',label=r'$k_{True}$')
-# pl.plot(fmap.tpars,muestra_map,'k-o',label=r'$k_{MAP}$')
-# pl.plot(fmap.tpars,muestra_mean,'r-*',label=r'$k_{CM}$')
-# for zzz in np.arange(100):
-#     muestra_last = chain[-zzz,:-1]
-#     muestra_last = np.insert(muestra_last,0,fmap.pars0)
-#     pl.plot(fmap.tpars,muestra_map,'g-',alpha=0.5)
-# muestra_last = chain[-1,:-1]
-# muestra_last = np.insert(muestra_last,0,fmap.pars0)
-# pl.plot(fmap.tpars,muestra_map,'g-',label=r'$K_{sample}$',alpha=0.5)
-# pl.legend(loc=0)
-# pl.ylabel(r'$T(t)$')
-# pl.grid()
 # # k exacta e interpoladas de la media y del MAP
 k_exact_fina = fmap.diff_coeff_exact(fmap.t)
 muestra_mean_ip = fmap.fscub(muestra_mean,1)(fmap.t)
 muestra_map_ip = fmap.fscub(muestra_map,1)(fmap.t)
-# #Comparación de la verdad, el MAP y la media interpolados
-# pl.subplot(222)
-# pl.plot(fmap.t,muestra_map_ip,'k-')
-# pl.plot(fmap.t,muestra_mean_ip,'r-')
-# pl.plot(fmap.t,k_exact_fina,'b-')
-# pl.grid()
 # # Temperaturas (del MAP, de la media, mediciones y exacta) en
 # # el centro de la bola y en la frontera.
 u_map = fmap.solve(muestra_map_ip)
@@ -135,7 +112,6 @@ fig.savefig("true_vs_estimators.png")
 truth = fmap.diff_coeff_exact(fmap.tpars)[1:]
 range = [(0.9*x,1.1*x) for x in truth]
 figure = corner.corner(chain[:,:-1],truths=truth,range=range)
-#figure = corner.corner(chain[:,:-1],truths=truth)
 fig = pl.gcf()
 fig.savefig("posterior_vs_truth.png")
 
